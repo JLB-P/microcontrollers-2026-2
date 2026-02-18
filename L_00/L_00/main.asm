@@ -37,6 +37,6 @@
 		ldi counter,0x00; init counter
 
 start:
-		out PORTB,contador; write on port B
-		inc contador ;increment counter
+		out PORTB,counter; write on port B
+		inc counter ;increment counter
 		rjmp start ; got to "start" and repeat

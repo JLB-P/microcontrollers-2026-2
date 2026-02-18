@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\repo\microcontrollers-2026-2\L_00\L_00\main.asm Thu Feb 12 19:24:11 2026
+AVRASM ver. 2.2.8  C:\asm_avr\L_01\L_01\main.asm Tue Apr 13 15:56:33 2021
 
 
 EQU  SIGNATURE_000 0000001e
@@ -695,6 +695,12 @@ EQU  ACIaddr      0000002e
 EQU  TWIaddr      00000030
 EQU  SPMRaddr     00000032
 EQU  INT_VECTORS_SIZE 00000034
-DEF  My_Register  r17
-DEF  counter      r16
-CSEG start        00000014
+DEF  temp         r16
+DEF  counter      r17
+DEF  multiplier   r18
+CSEG start        0000000d
+CSEG on_off       00000016
+CSEG verify_push  0000000f
+CSEG delay        0000001b
+CSEG c2           0000001b
+CSEG c1           0000001c
