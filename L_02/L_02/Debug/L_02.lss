@@ -1,8 +1,8 @@
 
-AVRASM ver. 2.2.8  C:\repo\microcontrollers-2026-2\L_00_CPU\L_00_CPU\main.asm Tue Feb 17 14:18:59 2026
+AVRASM ver. 2.2.8  C:\repo\my-asm-programs\avr_asm\L_02\L_02\main.asm Wed Sep 13 16:08:53 2023
 
-[builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc'
-[builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc'
+[builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc\m328Pdef.inc'
+[builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc\m328Pdef.inc'
                                  
                                  ;
                                  
@@ -985,39 +985,79 @@ AVRASM ver. 2.2.8  C:\repo\microcontrollers-2026-2\L_00_CPU\L_00_CPU\main.asm Tu
                                  
                                  ; ***** END OF FILE ******************************************************
                                  
-                                 ; L_00_CPU.asm
-                                 /*
-                                 	1.DataSheet
-                                 		-AVR CPU Core
-                                 			-pipelining
-                                 	2.View Help
-                                 		-Assembler syntax **Register restriction (0-15 & 16-31)
-                                 		-Assembler directives 
-                                 		-Expressions 
-                                 			-functions
-                                 			-operands
-                                 			-operators
-                                 	3.Environment
-                                 		-Solution explorer
-                                 	4.Build
-                                 		-Segments and %usage
-                                 	5.Debug
-                                 		-CPU
-                                 		-Flash memory map
-                                 		-I/O
-                                 		-Register address (pag.309)
-                                 */
+                                 ; L_02.asm
                                  ;
-                                 ; Created: 2/17/2026 1:43:12 PM
-                                 ; Author : josel
+                                 ; 
+                                 /*
+                                 	1.SRAM memory
+                                 	-Data memory map (pag. 18)
+                                 		- 32 address General Purpose Registers
+                                 		- 64 I/O registers (pag.309)
+                                 		- 1024 internal data 
+                                 		- Addressing modes: 
+                                 			-Direct
+                                 			-Indirect with displacement
+                                 			-Indirect
+                                 			-Indirect with pre-decrement
+                                 			-Indirect with post-increment
+                                 	2. Variables declaration		
+                                 	3. addressing modes
+                                 		-Data Direct Addressing (lds Rd,K and lds K,Rr)
+                                 		-I/O Direct Addressing
+                                 		-Data indirect addressing (X=r27:r26,Y=r29:r28 o Z=r31:r30 como apuntador)
+                                 */
+                                 ; Author : jlb
                                  ;
                                  
-                                 ;define code segment starting address
+                                 ;Inicio de variables
+                                 .dseg
+                                 .org 0x0100
+000100                           mi_variable:		.byte	1 ;Reserva 1 byte para esta variable
+000101                           mi_otra_variable:	.byte	3 ;Reserva 3 bytes
+000104                           mi_variable_2:		.byte	1;
+                                 
+                                 ; Inicia segmento de programa
                                  .cseg
-                                 .org 0x10
+                                 .org 0x0
+000000 0615                      constante_1:			.db	0x15,6 ;Define constantes con valores 15 y 6
+000001 4241
+000002 4443
+000003 4645                      constante_2:			.db "ABCDEF"
+000004 1234                      constante_3:			.dw	0x1234
+000005 0055                      constante_4:			.dw	0x55	;Cambiar .dw por db y viceversa, obervar en debug
+000006 6677                      constante_5:			.dw 0x6677
+                                 
+                                 ;Inicia Stack
+000007 e008                      	ldi r16,high(RAMEND)
+000008 bf0e                      	out SPH,r16
+000009 ef0f                      	ldi r16,low(RAMEND)
+00000a bf0d                      	out SPL,r16		;I/O Direct Addressing
+                                 //Programa principal
                                  start:
-000010 9503                          inc r16
-000011 cffe                          rjmp start
+                                 	//Data direct addressing
+00000b e205                      	ldi r16,0x25
+00000c 9300 0100                 	sts mi_variable,r16 
+00000e 9110 0100                 	lds r17,mi_variable
+000010 e619                      	ldi r17,0x69
+000011 9310 0101                 	sts mi_otra_variable,r17
+000013 e505                      	ldi r16,0x55
+000014 9300 0104                 	sts mi_variable_2,r16
+                                 
+                                 	//Data indirect addressing
+000016 e0b1                      	ldi XH,high(mi_variable)
+000017 e0a0                      	ldi XL,low(mi_variable)
+000018 912c                      	ld r18,X
+000019 e727                      	ldi r18,0x77
+00001a 932c                      	st X,r18
+                                 
+                                 	//Data indirect with + and - y accediendo a cseg
+00001b e0f0                      	ldi ZH,high(constante_5<<1)	;multiplica por 2 para obtener el byte
+00001c e0ec                      	ldi ZL,low(constante_5<<1)	;multiplica por 2
+00001d 9125                      	lpm r18,Z+
+00001e 9124                      	lpm r18,Z
+                                 
+00001f cfeb                          rjmp start
+                                 //Subrutinas
 
 
 RESOURCE USE INFORMATION
@@ -1035,12 +1075,12 @@ counted separately from r26..r31 here.
 .dseg memory usage only counts static data declared with .byte
 
 "ATmega328P" register use summary:
-x  :   0 y  :   0 z  :   0 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
+x  :   2 y  :   0 z  :   2 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:   1 r17:   0 r18:   0 r19:   0 r20:   0 
-r21:   0 r22:   0 r23:   0 r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 
-r29:   0 r30:   0 r31:   0 
-Registers used: 1 out of 35 (2.9%)
+r13:   0 r14:   0 r15:   0 r16:   8 r17:   3 r18:   5 r19:   0 r20:   0 
+r21:   0 r22:   0 r23:   0 r24:   0 r25:   0 r26:   1 r27:   1 r28:   0 
+r29:   0 r30:   1 r31:   1 
+Registers used: 9 out of 35 (25.7%)
 
 "ATmega328P" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   0 and   :   0 
@@ -1052,23 +1092,23 @@ brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :   0 cbr   :   0
 clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   0 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
 cpi   :   0 cpse  :   0 dec   :   0 eor   :   0 fmul  :   0 fmuls :   0 
-fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   1 jmp   :   0 
-ld    :   0 ldd   :   0 ldi   :   0 lds   :   0 lpm   :   0 lsl   :   0 
+fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   0 jmp   :   0 
+ld    :   1 ldd   :   0 ldi   :  10 lds   :   1 lpm   :   3 lsl   :   0 
 lsr   :   0 mov   :   0 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
-neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :   0 pop   :   0 
+neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :   2 pop   :   0 
 push  :   0 rcall :   0 ret   :   0 reti  :   0 rjmp  :   1 rol   :   0 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :   0 sbic  :   0 sbis  :   0 
 sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
 sei   :   0 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
-sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :   0 
+sez   :   0 sleep :   0 spm   :   0 st    :   1 std   :   0 sts   :   3 
 sub   :   0 subi  :   0 swap  :   0 tst   :   0 wdr   :   0 
-Instructions used: 2 out of 113 (1.8%)
+Instructions used: 8 out of 113 (7.1%)
 
 "ATmega328P" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000020 0x000024      4      0      4   32768   0.0%
-[.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
+[.cseg] 0x000000 0x000040     50     14     64   32768   0.2%
+[.dseg] 0x000100 0x000105      0      5      5    2048   0.2%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 
 Assembly complete, 0 errors, 0 warnings

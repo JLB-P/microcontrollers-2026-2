@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\asm_avr\L_01\L_01\main.asm Tue Apr 13 15:56:33 2021
+AVRASM ver. 2.2.8  C:\repo\microcontrollers-2026-2\L_01\L_01\main.asm Thu Feb 19 11:27:21 2026
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc\m328Pdef.inc'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc\m328Pdef.inc'
@@ -986,89 +986,67 @@ AVRASM ver. 2.2.8  C:\asm_avr\L_01\L_01\main.asm Tue Apr 13 15:56:33 2021
                                  ; ***** END OF FILE ******************************************************
                                  
                                  ; L_01.asm
-                                 /*
-                                 	1.I/O registers (Datasheet pag.624)
-                                 	2.Stack Pointer (indespensable para uso de subrutinas)
-                                 		-Init Stack (stack allways decrements)
-                                 		-SRAM memory (pag.22)
-                                 	3.Depurar subrutinas
-                                 		-Break points (more than one)
-                                 		-Subruotine Time measurement
-                                 		-Stack
-                                 	4.SimulIDE
-                                 		-Output Current calculation..
-                                 */
+                                 
+                                 ;init code segment
                                  .cseg
-                                 .org 0x00	;Origen del código
+                                 .org 0x00
+                                 ;define alias for GPIO
                                  .def temp = r16
                                  .def counter = r17
-                                 .def multiplier = r18
                                  
-                                 ;Programa principal
-                                 	;Inicia Stack
-000000 e008                      	ldi temp,high(RAMEND) ;Obtiene byte alto
+                                 ;main program
+                                 	;init stack
+000000 e008                      	ldi temp,high(RAMEND) ;gets high byte
 000001 bf0e                      	out SPH,Temp
-000002 ef0f                      	ldi temp,low(RAMEND) ;Obtiene byte bajo
-000003 bf0d                      	out SPL,Temp
+000002 ef0f                      	ldi temp,low(RAMEND) ;gets low byte
+000003 bf0d                      	out SPL,temp
                                  
-                                 	;Configura puertos (pag.85)
+                                 	;define GPIO direction(pag.85)
                                  	;a)
-                                 	;Escribir en un bit particular (usando 1<<PBx)
+                                 	;write to bit (using 1<<PBx)
 000004 ef0a                      	ldi temp,0b1111_1010
 000005 b904                      	out DDRB,Temp
 000006 e001                      	ldi temp,(1<<PB0)
 000007 b904                      	out DDRB,Temp
                                  
                                  	;b)
-                                 	;Escribir en un bit particular (usando sbi)
+                                 	;write to bit (using sbi)
 000008 ef0a                      	ldi temp,0b1111_1010
 000009 b904                      	out DDRB,Temp
-00000a 9823                      	cbi DDRB,PB3 ;Bit 3 del puertoB como entrada
-00000b 9a20                      	sbi DDRB,PB0 ;Bit 0 del puertoB como salida
-                                 	;1. ¿Por qué require 2 click's para pasar a la otra instrucción?
-00000c 9a2b                      	sbi PORTB,PB3 ;Activa Resistencia pullup (pag.84)
-                                 	;2. Explique la diferencia entre escribir un bit de la manera hecha en el inciso a) y el b)
-                                 	;3. ¿Cómo quedaron configurados los pines del puerto B?
+00000a 9823                      	cbi DDRB,PB3 ;Bit 3 --> input
+00000b 9a20                      	sbi DDRB,PB0 ;Bit 0 -> output
+                                 	;1. requires 2 click's
+00000c 9a2b                      	sbi PORTB,PB3 ;Activate pullup (pag.84)
                                  start:
-00000d e114                      	ldi counter,20  ;Frecuencia 1
-00000e d007                      	rcall on_off	;Salta a la rutina on/off con valor para frecuencia 1
+00000d e114                      	ldi counter,20  ;freq1
+00000e d007                      	rcall on_off	;branch on_off
                                  
-                                 ;ciclo que verifica si un botón conectado en el pin de está cerrado o abierto.
-                                 verify_push:
+                                 ;verifies if sw is open/closed
+                                 verify_sw:
 00000f b103                      	in temp,PINB
 000010 7008                      	andi temp,0b00001000
 000011 3008                      	cpi temp,0x08
-000012 f3d1                      	breq start		;Si botón abierto, repite
+000012 f3d1                      	breq start		
                                  
-                                 	;Si botón oprimido, salta a rutina on/off a frecuencia 2
-000013 ef1f                      	ldi counter,255 ;Frecuencia 2
-000014 d001                      	rcall on_off	;salta a rutina on/off con valor para frecuencia 2
-000015 cff9                          rjmp verify_push
+000013 ef1f                      	ldi counter,255 ;freq2
+000014 d001                      	rcall on_off	
+000015 cff9                          rjmp verify_sw
                                  	;4. usando el debug, explique el uso del stack para el salto a subrutinas y regreso de una subrutina,
                                  	;	mostrando las direcciones del PC, SP y las alamcenadas en la pila (en RAM), antes y después de
                                  	;	ejecutar las subrutinas.
                                  	;5. con ayuda del debug, determine el valor de la frecuencia 1
                                  	;6. mediante el debug, determine el valor de la frecuencia 2
                                  
-                                 ;Subrutinas
-                                 /****************************************
-                                 * Rutina para encender y apagar el bit0.
-                                 * Entrada: ninguna
-                                 * Salida: ninguna
-                                 *****************************************/
+                                 ;Subroutines
+                                 ;****************************************
                                  on_off:
-000016 9a28                      	sbi PORTB,PB0 ;Enciende bit
-000017 d003                      	rcall delay ;Espera
-000018 9828                      	cbi PORTB,PB0 ;Apaga bit
-000019 d001                      	rcall delay ;Espera
+000016 9a28                      	sbi PORTB,PB0 
+000017 d003                      	rcall delay 
+000018 9828                      	cbi PORTB,PB0 
+000019 d001                      	rcall delay 
 00001a 9508                      	ret
-                                 
-                                 /****************************************
-                                 * Rutina de retardo, dado por counter y
-                                 * el valor definido en temp.
-                                 * Entrada: counter, temp
-                                 * Salida: retardo= counter x temp
-                                 *****************************************/
+                                 	
+                                 ;****************************************
                                  delay:
 00001b ea07                      c2:		ldi temp,167
 00001c 950a                      c1:		dec temp

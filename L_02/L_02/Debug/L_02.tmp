@@ -1,0 +1,35 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATmega328P"</DEVICE>
+ <WORKING_DIR>C:\repo\my-asm-programs\avr_asm\L_02\L_02\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\repo\my-asm-programs\avr_asm\L_02\L_02\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc\m328Pdef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\repo\my-asm-programs\avr_asm\L_02\L_02\Debug\L_02.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>L_02.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>L_02.map</FILE>
+  <FILE>L_02.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <mi_variable><FILE>C:\repo\my-asm-programs\avr_asm\L_02\L_02\main.asm</FILE><LINE>29</LINE></mi_variable>
+  <mi_otra_variable><FILE>C:\repo\my-asm-programs\avr_asm\L_02\L_02\main.asm</FILE><LINE>30</LINE></mi_otra_variable>
+  <mi_variable_2><FILE>C:\repo\my-asm-programs\avr_asm\L_02\L_02\main.asm</FILE><LINE>31</LINE></mi_variable_2>
+  <constante_1><FILE>C:\repo\my-asm-programs\avr_asm\L_02\L_02\main.asm</FILE><LINE>36</LINE></constante_1>
+  <constante_2><FILE>C:\repo\my-asm-programs\avr_asm\L_02\L_02\main.asm</FILE><LINE>37</LINE></constante_2>
+  <constante_3><FILE>C:\repo\my-asm-programs\avr_asm\L_02\L_02\main.asm</FILE><LINE>38</LINE></constante_3>
+  <constante_4><FILE>C:\repo\my-asm-programs\avr_asm\L_02\L_02\main.asm</FILE><LINE>39</LINE></constante_4>
+  <constante_5><FILE>C:\repo\my-asm-programs\avr_asm\L_02\L_02\main.asm</FILE><LINE>40</LINE></constante_5>
+  <start><FILE>C:\repo\my-asm-programs\avr_asm\L_02\L_02\main.asm</FILE><LINE>48</LINE></start>
+ </LABELS>
+</ASSEMBLER_INFO>
