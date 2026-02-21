@@ -7,6 +7,7 @@
 ;define alias for GPIO
 .def temp = r16
 .def counter = r17
+.def multiplier = r18
 
 ;main program
 	;init stack
@@ -45,12 +46,7 @@ verify_sw:
 	ldi counter,255 ;freq2
 	rcall on_off	
     rjmp verify_sw
-	;4. usando el debug, explique el uso del stack para el salto a subrutinas y regreso de una subrutina,
-	;	mostrando las direcciones del PC, SP y las alamcenadas en la pila (en RAM), antes y después de
-	;	ejecutar las subrutinas.
-	;5. con ayuda del debug, determine el valor de la frecuencia 1
-	;6. mediante el debug, determine el valor de la frecuencia 2
-
+	
 ;Subroutines
 ;****************************************
 on_off:
@@ -62,9 +58,10 @@ on_off:
 	
 ;****************************************
 delay:
+		mov multiplier,counter
 c2:		ldi temp,167
 c1:		dec temp
 		brne c1
-		dec counter 
+		dec multiplier 
 		brne c2
 		ret
