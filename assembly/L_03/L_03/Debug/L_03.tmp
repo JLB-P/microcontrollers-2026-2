@@ -1,0 +1,45 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.1.57</VERSION>
+ <DEVICE>"ATmega8"</DEVICE>
+ <WORKING_DIR>C:\A Working Folder\Programming\AtmelStudio\Ensamblador\L_03\L_03\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.0.90\avrasm\inc</DIR>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.0.90\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\A Working Folder\Programming\AtmelStudio\Ensamblador\L_03\L_03\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.0.90\avrasm\inc\m8def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\A Working Folder\Programming\AtmelStudio\Ensamblador\L_03\L_03\Debug\L_03.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>L_03.hex</FILE>
+  <FILE>L_03.eep</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>L_03.map</FILE>
+  <FILE>L_03.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <dato0><FILE>C:\A Working Folder\Programming\AtmelStudio\Ensamblador\L_03\L_03\main.asm</FILE><LINE>19</LINE></dato0>
+  <dato1><FILE>C:\A Working Folder\Programming\AtmelStudio\Ensamblador\L_03\L_03\main.asm</FILE><LINE>21</LINE></dato1>
+  <dato2><FILE>C:\A Working Folder\Programming\AtmelStudio\Ensamblador\L_03\L_03\main.asm</FILE><LINE>23</LINE></dato2>
+  <dato3><FILE>C:\A Working Folder\Programming\AtmelStudio\Ensamblador\L_03\L_03\main.asm</FILE><LINE>25</LINE></dato3>
+  <dato4><FILE>C:\A Working Folder\Programming\AtmelStudio\Ensamblador\L_03\L_03\main.asm</FILE><LINE>27</LINE></dato4>
+  <dato5><FILE>C:\A Working Folder\Programming\AtmelStudio\Ensamblador\L_03\L_03\main.asm</FILE><LINE>29</LINE></dato5>
+  <dato6><FILE>C:\A Working Folder\Programming\AtmelStudio\Ensamblador\L_03\L_03\main.asm</FILE><LINE>31</LINE></dato6>
+  <dato7><FILE>C:\A Working Folder\Programming\AtmelStudio\Ensamblador\L_03\L_03\main.asm</FILE><LINE>33</LINE></dato7>
+  <dato8><FILE>C:\A Working Folder\Programming\AtmelStudio\Ensamblador\L_03\L_03\main.asm</FILE><LINE>35</LINE></dato8>
+  <dato9><FILE>C:\A Working Folder\Programming\AtmelStudio\Ensamblador\L_03\L_03\main.asm</FILE><LINE>37</LINE></dato9>
+  <dato10><FILE>C:\A Working Folder\Programming\AtmelStudio\Ensamblador\L_03\L_03\main.asm</FILE><LINE>39</LINE></dato10>
+  <dato11><FILE>C:\A Working Folder\Programming\AtmelStudio\Ensamblador\L_03\L_03\main.asm</FILE><LINE>41</LINE></dato11>
+  <dato12><FILE>C:\A Working Folder\Programming\AtmelStudio\Ensamblador\L_03\L_03\main.asm</FILE><LINE>43</LINE></dato12>
+  <dato13><FILE>C:\A Working Folder\Programming\AtmelStudio\Ensamblador\L_03\L_03\main.asm</FILE><LINE>45</LINE></dato13>
+  <dato14><FILE>C:\A Working Folder\Programming\AtmelStudio\Ensamblador\L_03\L_03\main.asm</FILE><LINE>47</LINE></dato14>
+  <dato15><FILE>C:\A Working Folder\Programming\AtmelStudio\Ensamblador\L_03\L_03\main.asm</FILE><LINE>49</LINE></dato15>
+  <start><FILE>C:\A Working Folder\Programming\AtmelStudio\Ensamblador\L_03\L_03\main.asm</FILE><LINE>76</LINE></start>
+ </LABELS>
+</ASSEMBLER_INFO>

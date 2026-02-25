@@ -1,0 +1,29 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATmega328P"</DEVICE>
+ <WORKING_DIR>C:\repo\my-asm-programs\avr_asm\L_04\L_04\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\repo\my-asm-programs\avr_asm\L_04\L_04\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc\m328Pdef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\repo\my-asm-programs\avr_asm\L_04\L_04\Debug\L_04.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>L_04.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>L_04.map</FILE>
+  <FILE>L_04.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <start><FILE>C:\repo\my-asm-programs\avr_asm\L_04\L_04\main.asm</FILE><LINE>34</LINE></start>
+  <delay><FILE>C:\repo\my-asm-programs\avr_asm\L_04\L_04\main.asm</FILE><LINE>46</LINE></delay>
+  <ciclo><FILE>C:\repo\my-asm-programs\avr_asm\L_04\L_04\main.asm</FILE><LINE>50</LINE></ciclo>
+ </LABELS>
+</ASSEMBLER_INFO>
